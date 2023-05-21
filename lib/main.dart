@@ -2,12 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:outpost/styles.dart';
+import 'package:outpost/title_screen/title_screen.dart';
 import 'package:window_size/window_size.dart';
 
 void main() {
   if (Platform.isLinux) {
     WidgetsFlutterBinding.ensureInitialized();
-    setWindowMinSize(const Size(800, 800));
+    setWindowMinSize(const Size(800, 500));
     setWindowTitle('Outpost');
   }
   runApp(const MyApp());
@@ -22,14 +23,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.dark,
       darkTheme: ThemeData(brightness: Brightness.dark),
-      home: Scaffold(
-        body: Center(
-          child: Text(
-            'Flutter Desktop',
-            style: TextStyles.h1,
-          ),
-        ),
-      ),
+      home: const TitleScreen(),
     );
   }
 }
