@@ -2,6 +2,8 @@ import 'package:extra_alignments/extra_alignments.dart';
 import 'package:flutter/material.dart';
 import 'package:focusable_control_builder/focusable_control_builder.dart';
 import 'package:gap/gap.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+
 import 'package:outpost/assets.dart';
 import 'package:outpost/common/ui_scaler.dart';
 import 'package:outpost/styles.dart';
@@ -80,8 +82,12 @@ class _TitleText extends StatelessWidget {
             Text('57', style: TextStyles.h2,),
             Image.asset(AssetPaths.titleSelectedRight, height: 65,),
           ],
-        ),
-        Text('INTO THE UNKNOWN', style: TextStyles.h3,),
+        ).animate().fadeIn(delay: .8.seconds, duration: .7.seconds),
+        
+        Text(
+          'INTO THE UNKNOWN', 
+          style: TextStyles.h3,
+        ).animate().fadeIn(delay: 1.seconds, duration: .7.seconds),
       ],
     );
   }
@@ -109,19 +115,25 @@ class _DifficultBtns extends StatelessWidget {
           onPressed: () => onDifficultyPressed(0), 
           onHover: (over) => onDifficultyFocused(over ? 0 : null), 
           label: 'Casual',
-        ),
+        ).animate().fadeIn(delay: 1.5.seconds, duration: .35.seconds)
+            .slide(begin: const Offset(0, .2)),
+
         _DifficultyBtn(
           label: 'Normal',
           selected: difficulty == 1,
           onPressed: () => onDifficultyPressed(1),
           onHover: (over) => onDifficultyFocused(over ? 1 : null),
-        ),
+        ).animate().fadeIn(delay: 1.3.seconds, duration: .35.seconds)
+            .slide(begin: const Offset(0, .2)),
+
         _DifficultyBtn(
           label: 'Hardcore',
           selected: difficulty == 2,
           onPressed: () => onDifficultyPressed(2),
           onHover: (over) => onDifficultyFocused(over ? 2 : null),
-        ),
+        ).animate().fadeIn(delay: 1.7.seconds, duration: .35.seconds)
+            .slide(begin: const Offset(0, .2)),
+
         const Gap(20),
       ],
     );
@@ -245,8 +257,10 @@ class __StartBtnState extends State<_StartBtn> {
                 ),
               ),
             ],
-          ),
-        );
+          ).animate(autoPlay: false, onInit: (c) => _btnAnim = c)
+            .shimmer(duration: .7.seconds, color: Colors.black),
+        ).animate().fadeIn(delay: 2.3.seconds)
+            .slide(begin: const Offset(0, .2));
       }
     );
   }
