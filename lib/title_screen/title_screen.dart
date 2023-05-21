@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:outpost/assets.dart';
 import 'package:outpost/styles.dart';
+import 'package:outpost/title_screen/title_screen_ui.dart';
 
 class TitleScreen extends StatelessWidget {
   const TitleScreen({super.key});
@@ -56,6 +57,10 @@ class TitleScreen extends StatelessWidget {
               color: emitColor, 
               imgSrc: AssetPaths.titleFgEmit,
               lightAmt: _finalEmitLightAmt,
+            ),
+
+            const Positioned.fill(
+              child: TitleScreenUi(),
             ),
 
           ],
