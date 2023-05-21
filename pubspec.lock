@@ -83,6 +83,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  focusable_control_builder:
+    dependency: "direct main"
+    description:
+      name: focusable_control_builder
+      sha256: "61848d77169b9faf00d7c53a70bf3388456542ff2f5cf9b950118a1790bec5d7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1+1"
   gap:
     dependency: "direct main"
     description:

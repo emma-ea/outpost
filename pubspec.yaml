@@ -21,6 +21,7 @@ dependencies:
       path: plugins/window_size
   gap: ^3.0.0
   extra_alignments: ^1.0.0+1
+  focusable_control_builder: ^1.0.1+1
 
 dev_dependencies:
   flutter_test:
