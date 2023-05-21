@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:outpost/assets.dart';
 import 'package:outpost/styles.dart';
 import 'package:outpost/title_screen/title_screen_ui.dart';
@@ -21,7 +22,10 @@ class _TitleScreenState extends State<TitleScreen> {
     _difficultOverride ?? _difficulty
   ];
 
+  /// Currently selected difficulty
   int _difficulty = 0;
+
+  /// Currently focused difficulty (if any)
   int? _difficultOverride = 0;
 
   void _handleDifficultyPressed(int value) {
@@ -45,57 +49,63 @@ class _TitleScreenState extends State<TitleScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Center(
-        child: Stack(
-          children: [
-            Image.asset(AssetPaths.titleBgBase),
+        child: _AnimatedColors(
+          orbColor: _orbColor,
+          emitColor: _emitColor,
+          builder: (_, orbColor, emitColor) {
+            return Stack(
+              children: [
+                Image.asset(AssetPaths.titleBgBase),
 
-            _LitImage(
-              color: _orbColor, 
-              imgSrc: AssetPaths.titleBgReceive, 
-              lightAmt: _finalReceiveLightAmt,
-            ),
+                _LitImage(
+                  color: orbColor, 
+                  imgSrc: AssetPaths.titleBgReceive, 
+                  lightAmt: _finalReceiveLightAmt,
+                ),
 
-            _LitImage(
-              color: _orbColor, 
-              imgSrc: AssetPaths.titleMgBase,
-              lightAmt: _finalReceiveLightAmt,
-            ),
+                _LitImage(
+                  color: orbColor, 
+                  imgSrc: AssetPaths.titleMgBase,
+                  lightAmt: _finalReceiveLightAmt,
+                ),
 
-            _LitImage(
-              color: _orbColor, 
-              imgSrc: AssetPaths.titleMgReceive,
-              lightAmt: _finalReceiveLightAmt,
-            ),
+                _LitImage(
+                  color: orbColor, 
+                  imgSrc: AssetPaths.titleMgReceive,
+                  lightAmt: _finalReceiveLightAmt,
+                ),
 
-            _LitImage(
-              color: _emitColor, 
-              imgSrc: AssetPaths.titleMgEmit,
-              lightAmt: _finalEmitLightAmt,
-            ),
+                _LitImage(
+                  color: emitColor, 
+                  imgSrc: AssetPaths.titleMgEmit,
+                  lightAmt: _finalEmitLightAmt,
+                ),
 
-            Image.asset(AssetPaths.titleFgBase),
+                Image.asset(AssetPaths.titleFgBase),
 
-            _LitImage(
-              color: _orbColor, 
-              imgSrc: AssetPaths.titleFgReceive,
-              lightAmt: _finalReceiveLightAmt,
-            ),
+                _LitImage(
+                  color: orbColor, 
+                  imgSrc: AssetPaths.titleFgReceive,
+                  lightAmt: _finalReceiveLightAmt,
+                ),
 
-            _LitImage(
-              color: _emitColor, 
-              imgSrc: AssetPaths.titleFgEmit,
-              lightAmt: _finalEmitLightAmt,
-            ),
+                _LitImage(
+                  color: emitColor, 
+                  imgSrc: AssetPaths.titleFgEmit,
+                  lightAmt: _finalEmitLightAmt,
+                ),
 
-            Positioned.fill(
-              child: TitleScreenUi(
-                difficulty: _difficulty,
-                onDifficultyPressed: _handleDifficultyPressed,
-                onDifficultyFocused: _handleDifficultyFocused,
-              ),
-            ),
+                Positioned.fill(
+                  child: TitleScreenUi(
+                    difficulty: _difficulty,
+                    onDifficultyPressed: _handleDifficultyPressed,
+                    onDifficultyFocused: _handleDifficultyFocused,
+                  ),
+                ),
 
-          ],
+              ],
+            ).animate().fadeIn(duration: 1.seconds, delay: 3.seconds);
+          }
         ),
       ),
     );
@@ -124,4 +134,40 @@ class _LitImage extends StatelessWidget {
     );
   }
 
+}
+
+class _AnimatedColors extends StatelessWidget {
+  const _AnimatedColors({
+    super.key,
+    required this.emitColor, 
+    required this.orbColor, 
+    required this.builder,
+  });
+
+  final Color emitColor;
+  final Color orbColor;
+
+  final Widget Function(
+    BuildContext context, 
+    Color orbColor, 
+    Color emitColor
+  ) builder;
+
+  @override
+  Widget build(BuildContext context) {
+    final duration = .5.seconds;
+    return TweenAnimationBuilder(
+      tween: ColorTween(begin: emitColor, end: emitColor), 
+      duration: duration, 
+      builder: (_, emitColor, __) {
+        return TweenAnimationBuilder(
+          tween: ColorTween(begin: orbColor, end: orbColor), 
+          duration: duration, 
+          builder: (context, orbColor, __) {
+            return builder(context, orbColor!, emitColor!);
+          }
+        );
+      },
+    );
+  }
 }
