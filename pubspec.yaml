@@ -6,7 +6,7 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.18.6 <3.0.0'
+  sdk: '>=3.0.0 <4.0.0'
 
 
 dependencies:
@@ -41,5 +41,5 @@ flutter:
         - asset: assets/fonts/Exo-Medium.ttf
 
   shaders:
-    - assets/shaders/orb.shader.frag
+    - assets/shaders/orb_shader.frag
     - assets/shaders/ui_glitch.frag
